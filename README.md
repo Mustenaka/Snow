@@ -10,7 +10,7 @@ Unity中实现 高度贴图，深度贴图，可回弹变形的高度贴图模�
 
 > main texture + Height texture builds height effect
 
-![Height](.\Pic\Height.png)
+![Height](Pic/Height.png)
 
 
 
@@ -18,7 +18,7 @@ Unity中实现 高度贴图，深度贴图，可回弹变形的高度贴图模�
 
 > Control the height texture, do the drawing process (very inefficient), and set the elastic recovery
 
-![Soft](.\Pic\Soft.gif)
+![Soft](Pic/Soft.gif)
 
 
 
