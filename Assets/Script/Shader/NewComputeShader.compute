@@ -1,0 +1,38 @@
+#pragma kernel CSMain
+
+RWTexture2D<float4> HeightTex;
+RWTexture2D<float4> ResultTex;
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    //行走的轨迹按“最深”来采样
+    //也就是heiRt.R<=compRt.R?heiRt.R:compRt.R
+    float4 heicol = HeightTex[id.xy];
+    //有“新足迹”
+    if(heicol.x > 0)        
+    {
+        float4 retcol = ResultTex[id.xy];
+        //有“老足迹”
+        if(retcol.x > 0)
+        {
+            //判断“最深足迹”
+            if(heicol.x < retcol.x)
+            {
+                ResultTex[id.xy] = heicol;
+            }
+            else
+            {
+                ResultTex[id.xy] = retcol;
+            }
+        }
+        else    //无“老足迹”
+        {
+            ResultTex[id.xy] += heicol;
+        }
+    }
+    else //无“新足迹”，直接合成                   
+    {
+        ResultTex[id.xy] += heicol;
+    }
+}
